@@ -2,18 +2,27 @@
 //  ContentView.swift
 //  BeaconSender
 //
-//  Created by to-matsushita on 2023/09/22.
+//  Created by krote on 2023/09/22.
 //
 
 import SwiftUI
 
+var beacon:IBeaconManager? = nil
+
 struct ContentView: View {
+    @State var beaconLog: String = ""
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            HStack{
+                Button("Start", action: {
+                    beacon = IBeaconManager()
+                    beacon?.initBeacon()
+                })
+                Button("Stop", action:{
+                    beacon?.stopLocalBeacon()
+                })
+            }
+            Text(beaconLog)
         }
         .padding()
     }
